@@ -1,14 +1,5 @@
 #!/bin/bash
 
-checkname(){
-name_check=$(echo $1 | grep "^[\-\$\~]*" || echo "0")
-
-if [[ name_check != "0" ]] ; then
-        echo "Filename can't begin with \$, ~ or -!"
-        exit 1
-fi
-}
-
 # let's get our path
 copyingDir=$1
 backName=""
