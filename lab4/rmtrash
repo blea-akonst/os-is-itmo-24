@@ -3,6 +3,17 @@
 trash_path=~/.trash # trash folder location
 filename=$1 # getting filename from params
 
+checkname(){
+	name_check=$(echo $1 | grep "^[\-\$\~]*" || echo "0")
+
+	if [[ name_check != "0" ]] ; then
+        	echo "Filename can't begin with \$, ~ or -!"
+        	exit 1
+	fi
+}
+
+checkname $filename
+
 # is file exists
 if [[ ! -e $filename ]] ; then
 	echo "File opening error: \"$1\" is not a file!"

@@ -1,5 +1,14 @@
 #!/bin/bash
 
+checkname(){
+name_check=$(echo $1 | grep "^[\-\$\~]*" || echo "0")
+
+if [[ name_check != "0" ]] ; then
+        echo "Filename can't begin with \$, ~ or -!"
+        exit 1
+fi
+}
+
 # let's get our path
 copyingDir=$1
 backName=""
@@ -37,6 +46,7 @@ else
 	cd $copyingDir
 	listInCopyingDir="$(ls -1)"
 	for file in $listInCopyingDir; do
+		checkname $file
 		if [[ -f $file ]] ; then
 			if [[ -e ~/user/$backName/$file ]] ; then
 				if [[ $(stat -c %s $file) -eq $(stat -c %s ~/user/$backName/$file) ]] ; then
